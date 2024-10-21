@@ -47,8 +47,13 @@
                 db.Add(newleave);
                 db.SaveChanges();
 
-                Console.WriteLine($"Total leave applied by {employy1.EmployyName} for {employeeLeave1.NumOfDays + newleave.NumOfDays } days ");
-            
+                var TotalLeave= db.EmployysLeave
+                .Where(l=>l.EmployyId ==employy1.EmployyId)
+                .Sum(l=> l.NumOfDays);
+                  
+                Console.WriteLine($"TotalLeave applied by {employy1.EmployyName} is {TotalLeave} days");
+
+               
                 db.RemoveRange(employy, employy1, employy2);
                 db.RemoveRange(employeeLeave, employeeLeave1, employeeLeave2, newleave);
                 db.SaveChanges();
